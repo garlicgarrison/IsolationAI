@@ -5,7 +5,6 @@ import java.util.PriorityQueue;
 public class Node {
 
     public int[][] board;
-    public Node parent;
     boolean computerIsPlayer;
     int opponentPosition;
     int position;

@@ -26,7 +26,7 @@ public class UserInterface {
                 System.out.println("\f");
                 printBoard(b.board);
                 AlphaBeta ab = new AlphaBeta();
-                int nextMove = ab.alphaBetaSearch(b.board);
+                int nextMove = ab.goDeeper(b.board);
                 history[currentMove] = descartToString(nextMove);
                 b.move(nextMove, player1);
                 currentMove++;
@@ -96,8 +96,7 @@ public class UserInterface {
 
     public String descartToString(int move){
         char row = (char)(move/10-1 + 65);
-        char col = (char)(move%10 -1);
-        String ans = row+ "" +col;
+        String ans = row+ "" +(move%10);
         return ans;
     }
 
@@ -158,7 +157,20 @@ public class UserInterface {
             moveCounter++;
             System.out.println();
         }
-        System.out.println();
+        while(moveCounter+1 <= currentMove-1){
+            System.out.print("\t\t\t\t\t   " + (moveCounter/2 +1) + ". " + history[moveCounter]);
+            moveCounter++;
+            System.out.println("          " + (moveCounter/2 +1) + ". " + history[moveCounter]);
+            moveCounter++;
+        }
+//        for(int j=board.length; j<currentMove; j++){
+//            System.out.print((j+1) + ". " + history[moveCounter]);
+//            moveCounter++;
+//            System.out.println((j+1) + ". " + history[moveCounter]);
+//            moveCounter++;
+//        }
+        if(moveCounter+1<= currentMove) System.out.println((history.length) + ". " + history[moveCounter]);
+
     }
 
 }
