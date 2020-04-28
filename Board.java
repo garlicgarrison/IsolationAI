@@ -8,8 +8,8 @@ public class Board
     private int currentPos2;
     private HashSet<Integer> legalMoves1;
     private HashSet<Integer> legalMoves2;
-    //0 means empty, 1 means taken, 2 means the spot you are on, 3 is the 
-    //spot the opponent is on
+    //0 means empty, 1 means taken, 2 means the spot player1 is on, 3 is the
+    //spot the computer is on
     public boolean winnerIsPlayer1;// true if player1 won, false if player2 won, null if game is not over
 
     public HashSet<Integer> getLegalMoves1(int[][] board){

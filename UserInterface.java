@@ -16,11 +16,23 @@ public class UserInterface {
         currentMove = 0;
         while(!b.isGameOver())
         {
-            System.out.println("\f");
-            printBoard(b.board);
-            String input = inputMove();
-            checkMove(input, b);
+            if(player1){
+                System.out.println("\f");
+                printBoard(b.board);
+                String input = inputMove();
+                checkMove(input, b);
+            }
+            else{
+                System.out.println("\f");
+                printBoard(b.board);
+                AlphaBeta ab = new AlphaBeta();
+                int nextMove = ab.alphaBetaSearch(b.board);
+                history[currentMove] = descartToString(nextMove);
+                b.move(nextMove, player1);
+                currentMove++;
+            }
             player1 = !player1;
+
         }
         if(b.winnerIsPlayer1){
             System.out.println("Player 1 is the Winner!");
@@ -31,28 +43,34 @@ public class UserInterface {
     }
 
     public void checkMove(String input, Board b){
-        int newPosition = stringToDescart(input);
-        if(b.move(newPosition, player1)){
-            history[currentMove] = input;
-            currentMove++;
-        } else {
+        try{
+            int newPosition = stringToDescart(input);
+            if(b.move(newPosition, player1)){
+                history[currentMove] = input;
+                currentMove++;
+            } else {
+                System.out.println("Move is not valid");
+                checkMove(inputMove(), b);
+            }
+        } catch (Exception e){
             System.out.println("Move is not valid");
             checkMove(inputMove(), b);
         }
+
     }
 
     private boolean chooseFirstPlayer()
     {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Who goes first? 1 for Player 1, 2 for Player 2: ");
+        System.out.println("Who goes first? 1 for Player 1, C for Computer: ");
         String player = sc.nextLine();
         if (player.equals("1")){
             firstPlayer = "Player 1";
-            secondPlayer = "Player 2";
+            secondPlayer = "Computer";
             return true;
         }
-        else if (player.equals("2")) {
-            firstPlayer = "Player 2";
+        else if (player.equals("C")) {
+            firstPlayer = "Computer";
             secondPlayer = "Player 1";
             return false;
         }
@@ -64,15 +82,23 @@ public class UserInterface {
     }
 
     //turns string into cartesian coordinates in a array of size 2
-    public static int stringToDescart(String position)
+    public int stringToDescart(String position)
     {
-        String columnStr = position.substring(1);
-        String rowStr = position.substring(0,1);
-        int column = Integer.parseInt(columnStr) - 1;
-        char r = rowStr.charAt(0);
-        int row = r - 65;
-        int coordinates = (row+1)*10 + column+1;
-        return coordinates;
+            String columnStr = position.substring(1);
+            String rowStr = position.substring(0,1);
+            int column = Integer.parseInt(columnStr) - 1;
+            char r = rowStr.charAt(0);
+            int row = r - 65;
+            int coordinates = (row+1)*10 + column+1;
+            return coordinates;
+
+    }
+
+    public String descartToString(int move){
+        char row = (char)(move/10-1 + 65);
+        char col = (char)(move%10 -1);
+        String ans = row+ "" +col;
+        return ans;
     }
 
     public String inputMove()
