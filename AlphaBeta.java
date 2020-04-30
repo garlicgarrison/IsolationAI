@@ -1,18 +1,22 @@
+package IsolationAI;
+
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Timer;
 
 public class AlphaBeta {
     double startTime;
-    int maxDepth = 2;
-    long timeLimit = (long)Math.pow(10,10);
+    int maxDepth = 62;
+    int timeLimit = 20000;
 
-    public int goDeeper(int[][] state){
+    public int goDeeper(int[][] state)
+    {
         Node firstNode = new Node(state, true, 1);
         int bestMove = 0;
-        startTime = System.nanoTime();
+        startTime = System.currentTimeMillis();
         for (int depth = 1; depth < maxDepth; depth++) {
-            if (System.nanoTime() - startTime >= timeLimit) break;
+            if (System.currentTimeMillis() - startTime >= timeLimit) break;
             double val = Double.NEGATIVE_INFINITY;
             for (Node child:firstNode.getChildren()) {
                 Node newNode = alphaBetaSearch(child, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, depth);
@@ -22,13 +26,14 @@ public class AlphaBeta {
                 }
             }
         }
+
         return bestMove;
     }
 
     //returns the position to which the player should move
     public Node alphaBetaSearch(Node state, double alpha, double beta, int depth) {
         if(terminalTest(state) ||
-                System.nanoTime() - startTime >= timeLimit ||
+                System.currentTimeMillis() - startTime >= timeLimit ||
                 depth<=0)
         {
             return state;

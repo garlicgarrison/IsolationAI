@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=UserInterface
+comment1.params=
+comment1.target=void\ play()
+comment2.params=input\ b
+comment2.target=void\ checkMove(java.lang.String,\ Board)
+comment3.params=
+comment3.target=boolean\ chooseFirstPlayer()
+comment4.params=position
+comment4.target=int\ stringToDescart(java.lang.String)
+comment5.params=move
+comment5.target=java.lang.String\ descartToString(int)
+comment6.params=
+comment6.target=java.lang.String\ inputMove()
+comment7.params=board
+comment7.target=void\ printBoard(int[][])
+numComments=8

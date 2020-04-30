@@ -1,3 +1,5 @@
+package IsolationAI;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.PriorityQueue;
@@ -10,6 +12,7 @@ public class Node {
     int position;
     double value;
     public int depth;
+    int spotsTaken = 0;
 
     public Node(int[][] board, boolean computerIsPlayer, int depth){
         this.board = board;
@@ -19,10 +22,16 @@ public class Node {
                 if(board[i][j]==2){
                     if(!computerIsPlayer) position = (i+1)*10 + j+1;
                     else opponentPosition = (i+1)*10 + j+1;
+                    spotsTaken++;
                 }
                 if(board[i][j]==3){
                     if(computerIsPlayer) position = (i+1)*10 + j+1;
                     else opponentPosition = (i+1)*10 + j+1;
+                    spotsTaken++;
+                }
+                if (board[i][j] == 1)
+                {
+                    spotsTaken++;
                 }
             }
         }
@@ -44,12 +53,12 @@ public class Node {
         int orow = opponentPosition/10-1;
         int ocol = opponentPosition%10-1;
         if(computerIsPlayer){
-            return ((getLegalMoves(position).size() - 1.5*getLegalMoves(opponentPosition).size() ) );
+            return ((spotsTaken/40 + 0.5)*getLegalMoves(position).size() - getLegalMoves(opponentPosition).size() );
             //* 0.1
             //+ ((weight[row][col] - weight[orow][ocol]) / 6.0) * 0.5;
         }
         else{
-            return ((getLegalMoves(opponentPosition).size() - 1.5*getLegalMoves(position).size() ) );
+            return ((spotsTaken/40 + 0.5)*getLegalMoves(opponentPosition).size() - getLegalMoves(position).size() );
             //* 0.1
             //+ ((weight[row][col] - weight[orow][ocol]) / 6.0) * 0.5;
         }

@@ -1,3 +1,5 @@
+package IsolationAI;
+
 import java.util.Scanner;
 
 public class UserInterface {
@@ -7,7 +9,7 @@ public class UserInterface {
     private String[] history = new String[62];
     private int currentMove;
     private boolean player1;
-
+    
 
     public void play(){
         Board b = new Board();
