@@ -21,7 +21,7 @@ public class UserInterface {
             if(player1){
                 System.out.println("\f");
                 printBoard(b.board);
-                System.out.println("Computer's move is: " + computerMove + "\n");
+                if(computerMove !=null) System.out.println("Computer's move is: " + computerMove + "\n");
                 String input = inputMove();
                 checkMove(input, b);
             }
@@ -167,7 +167,7 @@ public class UserInterface {
             System.out.println("          " + (moveCounter/2 +1) + ". " + history[moveCounter]);
             moveCounter++;
         }
-        if(moveCounter+1<= currentMove) System.out.println("          " + (history.length) + ". " + history[moveCounter]);
+        if(moveCounter+1<= currentMove) System.out.println("\t\t\t\t\t   " + (moveCounter/2 +1) + ". " + history[moveCounter]);
 
     }
 
