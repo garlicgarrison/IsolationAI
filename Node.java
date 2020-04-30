@@ -12,41 +12,48 @@ public class Node {
     double value;
     public int depth;
     int spotsTaken = 0;
+    int[][] weight = {{0, 1, 2, 3, 3, 2, 1, 0},
+            {1, 2, 3, 4, 4, 3, 2, 1},
+            {2, 3, 4, 6, 6, 4, 3, 2},
+            {3, 4, 6, 8, 8, 6, 4, 3},
+            {3, 4, 6, 8, 8, 6, 4, 3},
+            {2, 3, 4, 6, 6, 4, 3, 2},
+            {1, 2, 3, 4, 4, 3, 2, 1},
+            {0, 1, 2, 3, 3, 2, 1, 0}};
 
-    public Node(int[][] board, boolean computerIsPlayer, int depth){
+    public Node(int[][] board, boolean computerIsPlayer, int depth) {
         this.board = board;
         this.computerIsPlayer = computerIsPlayer;
-        for(int i=0; i<board.length; i++){
-            for (int j=0; j<board.length; j++){
-                if(board[i][j]==2){
-                    if(!computerIsPlayer) position = (i+1)*10 + j+1;
-                    else opponentPosition = (i+1)*10 + j+1;
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board.length; j++) {
+                if (board[i][j] == 2) {
+                    if (!computerIsPlayer) position = (i + 1) * 10 + j + 1;
+                    else opponentPosition = (i + 1) * 10 + j + 1;
                     spotsTaken++;
                 }
-                if(board[i][j]==3){
-                    if(computerIsPlayer) position = (i+1)*10 + j+1;
-                    else opponentPosition = (i+1)*10 + j+1;
+                if (board[i][j] == 3) {
+                    if (computerIsPlayer) position = (i + 1) * 10 + j + 1;
+                    else opponentPosition = (i + 1) * 10 + j + 1;
                     spotsTaken++;
                 }
-                if (board[i][j] == 1)
-                {
+                if (board[i][j] == 1) {
                     spotsTaken++;
                 }
             }
         }
-        value = heur();
+        value = sortHeur();
         this.depth = depth;
     }
 
+    private int sortHeur()
+    {
+        int row = position/10-1;
+        int col = position%10-1;
+        int orow = opponentPosition/10-1;
+        int ocol = opponentPosition%10-1;
+        return weight[row][col]-weight[orow][ocol];
+    }
     public double heur(){
-       /* int[][] weight = {{0, 1, 2, 3, 3, 2, 1, 0},
-            {1, 2, 3, 4, 4, 3, 2, 1},
-            {2, 3, 4, 5, 5, 4, 3, 2},
-            {3, 4, 5, 6, 6, 5, 4, 3},
-            {3, 4, 5, 6, 6, 5, 4, 3},
-            {2, 3, 4, 5, 5, 4, 3, 2},
-            {1, 2, 3, 4, 4, 3, 2, 1},
-            {0, 1, 2, 3, 3, 2, 1, 0}}; */
         int row = position/10-1;
         int col = position%10-1;
         int orow = opponentPosition/10-1;
