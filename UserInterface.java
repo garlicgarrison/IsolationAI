@@ -8,6 +8,7 @@ public class UserInterface {
     private String[] history = new String[62];
     private int currentMove;
     private boolean player1;
+    private String computerMove;
     
 
     public void play(){
@@ -20,6 +21,7 @@ public class UserInterface {
             if(player1){
                 System.out.println("\f");
                 printBoard(b.board);
+                System.out.println("Computer's move is: " + computerMove + "\n");
                 String input = inputMove();
                 checkMove(input, b);
             }
@@ -28,18 +30,19 @@ public class UserInterface {
                 printBoard(b.board);
                 AlphaBeta ab = new AlphaBeta();
                 int nextMove = ab.goDeeper(b.board);
-                history[currentMove] = descartToString(nextMove);
+                computerMove = descartToString(nextMove);
+                history[currentMove] = computerMove;
                 b.move(nextMove, player1);
                 currentMove++;
             }
             player1 = !player1;
 
         }
-        if(b.winnerIsPlayer1){
-            System.out.println("Player 1 is the Winner!");
+        if(b.winnerIsOpponent){
+            System.out.println("Opponent is the Winner!");
         }
         else{
-            System.out.println("Player 2 is the Winner!");
+            System.out.println("The Computer is the Winner!");
         }
     }
 
@@ -63,16 +66,16 @@ public class UserInterface {
     private boolean chooseFirstPlayer()
     {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Who goes first? 1 for Player 1, C for Computer: ");
+        System.out.println("Who goes first? O for Opponent, C for Computer: ");
         String player = sc.nextLine();
-        if (player.equals("1")){
-            firstPlayer = "Player 1";
+        if (player.equals("O")){
+            firstPlayer = "Opponent";
             secondPlayer = "Computer";
             return true;
         }
         else if (player.equals("C")) {
             firstPlayer = "Computer";
-            secondPlayer = "Player 1";
+            secondPlayer = "Opponent";
             return false;
         }
         else
@@ -164,13 +167,7 @@ public class UserInterface {
             System.out.println("          " + (moveCounter/2 +1) + ". " + history[moveCounter]);
             moveCounter++;
         }
-//        for(int j=board.length; j<currentMove; j++){
-//            System.out.print((j+1) + ". " + history[moveCounter]);
-//            moveCounter++;
-//            System.out.println((j+1) + ". " + history[moveCounter]);
-//            moveCounter++;
-//        }
-        if(moveCounter+1<= currentMove) System.out.println((history.length) + ". " + history[moveCounter]);
+        if(moveCounter+1<= currentMove) System.out.println("          " + (history.length) + ". " + history[moveCounter]);
 
     }
 

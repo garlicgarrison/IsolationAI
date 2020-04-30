@@ -11,15 +11,16 @@ public class Node {
     int position;
     double value;
     public int depth;
-    int spotsTaken = 0;
-    int[][] weight = {{0, 1, 2, 3, 3, 2, 1, 0},
+    private int spotsTaken = 0;
+    private int[][] weight = {
+            {1, 1, 2, 3, 3, 2, 1, 1},
             {1, 2, 3, 4, 4, 3, 2, 1},
-            {2, 3, 4, 6, 6, 4, 3, 2},
+            {2, 3, 5, 6, 6, 5, 3, 2},
             {3, 4, 6, 8, 8, 6, 4, 3},
             {3, 4, 6, 8, 8, 6, 4, 3},
-            {2, 3, 4, 6, 6, 4, 3, 2},
+            {2, 3, 5, 6, 6, 5, 3, 2},
             {1, 2, 3, 4, 4, 3, 2, 1},
-            {0, 1, 2, 3, 3, 2, 1, 0}};
+            {1, 1, 2, 3, 3, 2, 1, 1}};
 
     public Node(int[][] board, boolean computerIsPlayer, int depth) {
         this.board = board;
@@ -59,14 +60,15 @@ public class Node {
         int orow = opponentPosition/10-1;
         int ocol = opponentPosition%10-1;
         if(computerIsPlayer){
-            return ((spotsTaken/40 + 0.5)*getLegalMoves(position).size() - getLegalMoves(opponentPosition).size() );
+            return ((spotsTaken/40 + 0.5)*getLegalMoves(position).size() * (weight[row][col]/8.0)
+                    - getLegalMoves(opponentPosition).size()*weight[orow][ocol]/8.0 );
             //* 0.1
-            //+ ((weight[row][col] - weight[orow][ocol]) / 6.0) * 0.5;
+           // + ((weight[row][col] - weight[orow][ocol]) / 8.0) * 0.5;
         }
         else{
-            return ((spotsTaken/40 + 0.5)*getLegalMoves(opponentPosition).size() - getLegalMoves(position).size() );
-            //* 0.1
-            //+ ((weight[row][col] - weight[orow][ocol]) / 6.0) * 0.5;
+            return ((spotsTaken/40 + 0.5)*getLegalMoves(opponentPosition).size()*weight[orow][ocol]
+                    - getLegalMoves(position).size()*weight[orow][ocol]/8.0 );
+
         }
     }
 

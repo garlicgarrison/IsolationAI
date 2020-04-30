@@ -11,7 +11,7 @@ public class Board
     private HashSet<Integer> legalMoves2;
     //0 means empty, 1 means taken, 2 means the spot player1 is on, 3 is the
     //spot the computer is on
-    public boolean winnerIsPlayer1;// true if player1 won, false if player2 won, null if game is not over
+    public boolean winnerIsOpponent;// true if player1 won, false if player2 won, null if game is not over
 
     public HashSet<Integer> getLegalMoves1(int[][] board){
         return legalMoves1;
@@ -43,11 +43,11 @@ public class Board
     {
         try{
             if(legalMoves1.isEmpty()) {
-                winnerIsPlayer1 = true;
+                winnerIsOpponent = false;
                 return true;
             }
             if(legalMoves2.isEmpty()){
-                winnerIsPlayer1 = false;
+                winnerIsOpponent = true;
                 return true;
             }
         }
