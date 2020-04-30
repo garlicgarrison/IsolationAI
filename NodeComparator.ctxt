@@ -1,5 +1,0 @@
-#BlueJ class context
-comment0.target=NodeComparator
-comment1.params=n1\ n2
-comment1.target=int\ compare(Node,\ Node)
-numComments=2

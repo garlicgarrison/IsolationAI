@@ -1,4 +1,3 @@
-package IsolationAI;
 
 import java.util.Comparator;
 
