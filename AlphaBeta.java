@@ -7,8 +7,8 @@ import java.util.Timer;
 public class AlphaBeta {
     double startTime;
     int maxDepth = 62;
-    int timeLimit = 2000;
-    int lastDepth = 0;
+    int timeLimit = 20000;
+
 
     public int goDeeper(int[][] state)
     {
@@ -32,7 +32,7 @@ public class AlphaBeta {
 
     //returns the position to which the player should move
     public Node alphaBetaSearch(Node state, double alpha, double beta, int depth) {
-        lastDepth = Math.max(state.depth, lastDepth);
+
         if(terminalTest(state) ||
                 System.currentTimeMillis() - startTime >= timeLimit ||
                 depth<=0)
@@ -50,7 +50,7 @@ public class AlphaBeta {
     }
 
     public Node maxValue(Node state, double a, double b, int depth){
-        lastDepth = Math.max(state.depth, lastDepth);
+
         double v = Double.NEGATIVE_INFINITY;
         Node next = state;
         PriorityQueue<Node> children = state.getChildren();
@@ -68,7 +68,7 @@ public class AlphaBeta {
     }
 
     public Node minValue(Node state, double a, double b, int depth){
-        lastDepth = Math.max(state.depth, lastDepth);
+
         double v = Double.POSITIVE_INFINITY;
         Node next = state;
         PriorityQueue<Node> children = state.getChildren();

@@ -1,4 +1,5 @@
 
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.PriorityQueue;
@@ -13,14 +14,14 @@ public class Node {
     public int depth;
     private int spotsTaken = 0;
     private int[][] weight = {
-            {1, 1, 2, 3, 3, 2, 1, 1},
-            {1, 2, 3, 4, 4, 3, 2, 1},
-            {2, 3, 5, 6, 6, 5, 3, 2},
-            {3, 4, 6, 8, 8, 6, 4, 3},
-            {3, 4, 6, 8, 8, 6, 4, 3},
-            {2, 3, 5, 6, 6, 5, 3, 2},
-            {1, 2, 3, 4, 4, 3, 2, 1},
-            {1, 1, 2, 3, 3, 2, 1, 1}};
+            {2, 2, 2, 2, 2, 2, 2, 2},
+            {2, 3, 3, 3, 3, 3, 3, 2},
+            {2, 3, 4, 4, 4, 4, 3, 2},
+            {2, 3, 4, 6, 6, 4, 3, 2},
+            {2, 3, 4, 6, 6, 4, 3, 2},
+            {2, 3, 4, 4, 4, 4, 3, 2},
+            {2, 3, 3, 3, 3, 3, 3, 2},
+            {2, 2, 2, 2, 2, 2, 2, 2}};
 
     public Node(int[][] board, boolean computerIsPlayer, int depth) {
         this.board = board;
@@ -60,14 +61,14 @@ public class Node {
         int orow = opponentPosition/10-1;
         int ocol = opponentPosition%10-1;
         if(computerIsPlayer){
-            return ((spotsTaken/40 + 0.5)*getLegalMoves(position).size() * (weight[row][col]/8.0)
-                    - getLegalMoves(opponentPosition).size()*weight[orow][ocol]/8.0 );
+            return ((spotsTaken/38 + 0.4)*getLegalMoves(position).size() * (weight[row][col]/6.0)
+                    - getLegalMoves(opponentPosition).size()*weight[orow][ocol]/6.0 );
             //* 0.1
            // + ((weight[row][col] - weight[orow][ocol]) / 8.0) * 0.5;
         }
         else{
-            return ((spotsTaken/40 + 0.5)*getLegalMoves(opponentPosition).size()*weight[orow][ocol]
-                    - getLegalMoves(position).size()*weight[orow][ocol]/8.0 );
+            return ((spotsTaken/38 + 0.4)*getLegalMoves(opponentPosition).size()*(weight[orow][ocol]/6.0)
+                    - getLegalMoves(position).size()*weight[row][col]/6.0 );
 
         }
     }
